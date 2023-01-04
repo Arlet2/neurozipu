@@ -16,17 +16,21 @@ class Menu:
             count, 
             get_correct_string_by_number(count, ["модуль", "модуля", "модулей"])))
 
-def get_correct_string_by_number(count: int, attribute: list) -> str:
+        
+
+        
+
+def get_correct_string_by_number(count: int, word_list: list) -> str:
     n  = count % 100
     n1 = count % 10
 
     if (n > 10 and n < 20): # 11-19
-        return attribute[2]
+        return word_list[2]
 
     if (n1 > 1 and n1 < 5): # 2-4
-        return attribute[1]
+        return word_list[1]
 
     if (n1 == 1): # 1
-        return attribute[0]
+        return word_list[0]
 
-    return attribute[2] # 5-9 and others
+    return word_list[2] # 5-9 and others
