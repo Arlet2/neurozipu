@@ -1,14 +1,18 @@
 from module import Module
+import telebot
 from self_using_module import SelfUsingModule
 from collector_module import CollectorModule
+from default_module import DefaultModule
 
 class Menu:
     modules = []
 
-    def __init__(self) -> None:
-        self.modules.append(SelfUsingModule())
-        self.modules.append(CollectorModule())
-        pass
+    def __init__(self, bot: telebot.TeleBot) -> None:
+        self.modules.append(SelfUsingModule(bot))
+        self.modules.append(CollectorModule(bot))
+
+        DefaultModule(bot)()
+
     def __call__(self) -> int:
         count = self.modules.__len__()
 
