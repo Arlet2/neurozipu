@@ -14,4 +14,3 @@ class DefaultModule (Module):
         thr = threading.Thread(target=self.bot.polling, args=(False, False, 0, 20, 20, None, None, True), daemon=True)
 
         thr.start()
-        pass
