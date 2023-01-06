@@ -16,7 +16,7 @@ class Menu:
     def __call__(self) -> int:
         count = self.modules.__len__()
 
-        print("Добро пожаловать в меню! Всего %s %d %s" 
+        print("\nДобро пожаловать в меню! Всего %s %d %s" 
             % (
             get_correct_string_by_number(count, ["доступен", "доступно", "доступно"]),
             count, 
