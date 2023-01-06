@@ -13,7 +13,7 @@ class CollectorModule (Module):
     __file = ""
     
     __MAX_SIZE_OF_BUFFER = 5
-    __MAN_X = 201887630  # 5029071602 # 0 if for all people
+    __MAN_X = 5029071602 # 0 if for all people
     __HEADER = ["Message id", "Requests", "Reply"]
 
     def __init__(self, bot: telebot.TeleBot) -> None:
@@ -69,7 +69,7 @@ class CollectorModule (Module):
             #print("Файл был обновлен!")
 
     def __process_msg(self, msg):
-        if (self.__file.closed):
+        if (self.__file.closed): # TODO: add listening for all
             return
 
         if(self.__MAN_X == 0):
