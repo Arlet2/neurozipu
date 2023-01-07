@@ -40,7 +40,7 @@ class CollectorModule (Module):
 
         self.__open_file()
 
-        @self.bot.message_handler()
+        @self.bot.message_handler(content_types=["text"])
         def get_text_message(msg):
             if (msg.chat.type == "private"):
                 return
