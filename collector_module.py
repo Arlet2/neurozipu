@@ -13,7 +13,7 @@ class CollectorModule (Module):
 
     __file = ""
     
-    __MAX_SIZE_OF_BUFFER = 5
+    __MAX_SIZE_OF_BUFFER = 3
     __TARGET_ID = os.environ["TARGET_ID"] # 0 if for all people
     __HEADER = ["Message id", "Requests", "Reply"]
 
@@ -69,7 +69,7 @@ class CollectorModule (Module):
 
     def __refresh_file(self):
         while (True):
-            time.sleep(30)
+            time.sleep(300)
             self.__close_file()
             self.__open_file()
             #print("Файл был обновлен!")
