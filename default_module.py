@@ -25,6 +25,10 @@ class DefaultModule (Module):
                 thr = threading.Thread(target=self.__menu.stop, daemon=True)
                 thr.start()
 
+        @self.bot.message_handler(commands=["start"])
+        def get_text_message(msg):
+            self.bot.send_message(msg.chat.id, "Привет, я настоящий Упуцыпу, готов вести осознанный диалог и послать тебя нахуй")
+
         thr = threading.Thread(target=self.bot.polling, args=(False, False, 0, 20, 20, None, None, True), daemon=True)
 
         thr.start()
