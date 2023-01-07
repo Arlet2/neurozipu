@@ -3,6 +3,7 @@ import threading
 import pathlib
 import csv
 import time
+import os
 from module import Module
 
 class CollectorModule (Module):
@@ -13,7 +14,7 @@ class CollectorModule (Module):
     __file = ""
     
     __MAX_SIZE_OF_BUFFER = 5
-    __MAN_X = 5029071602 # 0 if for all people
+    __TARGET_ID = os.environ["TARGET_ID"] # 0 if for all people
     __HEADER = ["Message id", "Requests", "Reply"]
 
     def __init__(self, bot: telebot.TeleBot) -> None:
@@ -77,13 +78,13 @@ class CollectorModule (Module):
         if (self.__file.closed): 
             return
 
-        if (self.__MAN_X == 0):  # TODO: add listening for all
+        if (self.__TARGET_ID == 0):  # TODO: add listening for all
             return
 
         if (msg.chat.id not in self.__buffer):
             self.__buffer[msg.chat.id] = []
 
-        if (msg.from_user.id == self.__MAN_X):
+        if (msg.from_user.id == self.__TARGET_ID):
             csv.writer(self.__file).writerow([msg.message_id, self.__buffer[msg.chat.id], msg.text])
             self.__buffer[msg.chat.id].clear()
             return
