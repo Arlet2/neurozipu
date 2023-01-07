@@ -7,7 +7,7 @@ from module import Module
 
 class CollectorModule (Module):
     __isModuleWork = False
-    __buffer = []
+    __buffer = {}
     __refresh_thread: threading.Thread
 
     __file = ""
@@ -75,13 +75,16 @@ class CollectorModule (Module):
         if(self.__MAN_X == 0):
             return
 
+        if (msg.chat.id not in self.__buffer):
+            self.__buffer[msg.chat.id] = []
+
         if (msg.from_user.id == self.__MAN_X):
-            csv.writer(self.__file).writerow([msg.message_id, self.__buffer, msg.text])
-            self.__buffer.clear()
+            csv.writer(self.__file).writerow([msg.message_id, self.__buffer[msg.chat.id], msg.text])
+            self.__buffer[msg.chat.id].clear()
             return
 
-        self.__buffer.append(msg.text)
+        self.__buffer[msg.chat.id].append(msg.text)
 
-        if (self.__buffer.__len__() > self.__MAX_SIZE_OF_BUFFER):
-            self.__buffer.pop(0)
+        if (self.__buffer[msg.chat.id].__len__() > self.__MAX_SIZE_OF_BUFFER):
+            self.__buffer[msg.chat.id].pop(0)
         
