@@ -69,10 +69,10 @@ class CollectorModule (Module):
             #print("Файл был обновлен!")
 
     def __process_msg(self, msg):
-        if (self.__file.closed): # TODO: add listening for all
+        if (self.__file.closed): 
             return
 
-        if(self.__MAN_X == 0):
+        if (self.__MAN_X == 0):  # TODO: add listening for all
             return
 
         if (msg.chat.id not in self.__buffer):
