@@ -30,6 +30,7 @@ class CollectorModule (Module):
     def __turn_off(self) -> None:
         print("Отключение сборки данных...")
         self.__close_file()
+        print("Бот больше не собирает данные")
         
 
     
@@ -51,6 +52,8 @@ class CollectorModule (Module):
 
         self.__refresh_thread = threading.Thread(target=self.__refresh_file, daemon=True)
         self.__refresh_thread.start()
+
+        print("Данные собираются")
 
     def __close_file(self):
         self.__file.close()
