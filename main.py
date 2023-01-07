@@ -2,7 +2,7 @@ from menu import Menu
 import telebot
 import os
 
-def main():
+def __main__():
     bot = create_bot()
 
     menu = Menu(bot)
@@ -16,4 +16,4 @@ def create_bot() -> telebot.TeleBot:
 
 
 
-main()
+__main__()
