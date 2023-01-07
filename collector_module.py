@@ -40,6 +40,8 @@ class CollectorModule (Module):
 
         @self.bot.message_handler()
         def get_text_message(msg):
+            if (msg.chat.type == "private"):
+                return
             self.__process_msg(msg)
 
         self.bot.stop_polling()

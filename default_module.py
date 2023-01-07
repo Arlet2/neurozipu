@@ -16,7 +16,6 @@ class DefaultModule (Module):
     def __call__(self, *args: any, **kwds: any) -> None:
         @self.bot.message_handler(commands=["id"])
         def get_text_message(msg):
-            print(msg)
             self.bot.send_message(msg.chat.id, msg.chat.id)
 
         @self.bot.message_handler(commands=["kill"])
