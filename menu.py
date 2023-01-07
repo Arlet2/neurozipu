@@ -1,17 +1,22 @@
 from module import Module
 import telebot
-from self_using_module import SelfUsingModule
-from collector_module import CollectorModule
-from default_module import DefaultModule
+import os
+import time
 
 class Menu:
     modules = []
 
+    __is_program_work = True
+
     def __init__(self, bot: telebot.TeleBot) -> None:
+        from self_using_module import SelfUsingModule
+        from collector_module import CollectorModule
+        from default_module import DefaultModule
+
         self.modules.append(SelfUsingModule(bot))
         self.modules.append(CollectorModule(bot))
 
-        DefaultModule(bot)()
+        DefaultModule(bot, self)()
 
     def __call__(self) -> int:
         count = self.modules.__len__()
@@ -48,7 +53,9 @@ class Menu:
             return 0
 
         self.modules[mode]()
-
+    def stop (self):
+        time.sleep(2)
+        os._exit(2)
         
 
 def get_correct_string_by_number(count: int, word_list: list) -> str:
