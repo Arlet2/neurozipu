@@ -84,7 +84,7 @@ class CollectorModule (Module):
         if (msg.chat.id not in self.__buffer):
             self.__buffer[msg.chat.id] = []
 
-        if (msg.from_user.id == self.__TARGET_ID):
+        if (msg.from_user.id == int(self.__TARGET_ID)):
             csv.writer(self.__file).writerow([msg.message_id, self.__buffer[msg.chat.id], msg.text])
             self.__buffer[msg.chat.id].clear()
             return
