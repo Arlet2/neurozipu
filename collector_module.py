@@ -14,17 +14,18 @@ class CollectorModule (Module):
     __file = ""
     
     __MAX_SIZE_OF_BUFFER = 3
+    __REFRESH_TIME_MINUTES = 10
     __TARGET_ID = os.environ["TARGET_ID"] # 0 if for all people
     __HEADER = ["Message id", "Requests", "Reply"]
 
     def __init__(self, bot: telebot.TeleBot) -> None:
         super().__init__("Сборщик", "собирает данные для датасета", self.__call__, bot)
 
-    def __call__(self, *args: any, **kwds: any) -> None:
+    def __call__(self, **kwds: any) -> None:
         if (self.__isModuleWork):
             self.__turn_off()
         else:
-            self.__turn_on()
+            self.__turn_on(**kwds)
 
         self.__isModuleWork = not self.__isModuleWork
 
@@ -35,7 +36,7 @@ class CollectorModule (Module):
         
 
     
-    def __turn_on(self) -> None:
+    def __turn_on(self, **kwds: any) -> None:
         print("Включение сборки данных...")
 
         self.__open_file()
@@ -48,10 +49,10 @@ class CollectorModule (Module):
 
         self.bot.stop_polling()
 
-        thr = threading.Thread(target=self.bot.polling, args=(False, False, 0, 20, 20, None, None, True), daemon=True)
+        thr = threading.Thread(target=self.bot.polling, args=(False, False, 0, 20, 20, None, None, True), daemon=kwds["isDaemon"])
         thr.start()
 
-        self.__refresh_thread = threading.Thread(target=self.__refresh_file, daemon=True)
+        self.__refresh_thread = threading.Thread(target=self.__refresh_file, daemon=kwds["isDaemon"])
         self.__refresh_thread.start()
 
         print("Данные собираются")
@@ -69,7 +70,7 @@ class CollectorModule (Module):
 
     def __refresh_file(self):
         while (True):
-            time.sleep(300)
+            time.sleep(self.__REFRESH_TIME_MINUTES*60)
             self.__close_file()
             self.__open_file()
             #print("Файл был обновлен!")

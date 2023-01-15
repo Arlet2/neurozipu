@@ -6,8 +6,6 @@ import time
 class Menu:
     modules = []
 
-    __is_program_work = True
-
     def __init__(self, bot: telebot.TeleBot) -> None:
         from self_using_module import SelfUsingModule
         from collector_module import CollectorModule
@@ -18,8 +16,12 @@ class Menu:
 
         DefaultModule(bot, self)()
 
-    def __call__(self) -> int:
+    def __call__(self, mode) -> int:
         count = self.modules.__len__()
+
+        if (mode == "serv"):
+            self.modules[1](isDaemon=False)
+            return 0
 
         print("\nДобро пожаловать в меню! Всего %s %d %s" 
             % (
